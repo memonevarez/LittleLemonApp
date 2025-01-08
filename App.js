@@ -14,11 +14,11 @@ export default function App() {
     <>
       <View style={styles.container}>
         <LittleLemonHeader />
-
+        <WelcomeScreen />
         {/*<FeedbackForm />
         <MenuItemsSectionList />
-        <WelcomeScreen />*/}
-        <LoginScreen />
+        
+        <LoginScreen />*/}
       </View>
       <View style={{ backgroundColor: "#495E57" }}>
         <LittleLemonFooter />
