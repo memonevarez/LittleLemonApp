@@ -1,9 +1,17 @@
 import * as React from "react";
-import { Text, ScrollView, StyleSheet, Image, View } from "react-native";
-import { useColorScheme } from "react-native";
+import {
+  Text,
+  ScrollView,
+  StyleSheet,
+  Image,
+  View,
+  Pressable,
+} from "react-native";
+import { useColorScheme, useWindowDimensions } from "react-native";
 
-export default function WelcomeScreen() {
+export default function WelcomeScreen({ navigation }) {
   const colorScheme = useColorScheme();
+  const { height, width, fontScale } = useWindowDimensions();
   return (
     <ScrollView
       indicatorStyle={"white"}
@@ -43,6 +51,12 @@ export default function WelcomeScreen() {
         and classic cocktails in a lively but casual environment. We would love
         to hear more about your experience with us!
       </Text>
+      <Pressable
+        style={styles.menuButton}
+        onPress={() => navigation.navigate("Menu")}
+      >
+        <Text style={styles.buttonText}>View Menu</Text>
+      </Pressable>
       <View style={styles.imageContainer}>
         <Image
           style={styles.image}
@@ -79,6 +93,14 @@ export default function WelcomeScreen() {
           ]}
         >
           color scheme: {colorScheme}
+        </Text>
+        <Text
+          style={[
+            styles.title,
+            colorScheme === "light" ? { color: "black" } : { color: "#EDEFEE" },
+          ]}
+        >
+          Phone height: {height}, width: {width}, and fontScale: {fontScale}
         </Text>
       </View>
     </ScrollView>
@@ -131,5 +153,19 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderColor: "#EDEFEE",
     borderWidth: 2,
+  },
+  menuButton: {
+    padding: 10,
+    marginVertical: 10,
+    margin: 40,
+    backgroundColor: "#EDEFEE",
+    borderColor: "black",
+    borderWidth: 2,
+    borderRadius: 12,
+  },
+  buttonText: {
+    color: "#333333",
+    textAlign: "center",
+    fontSize: 22,
   },
 });

@@ -8,9 +8,9 @@ import {
   Pressable,
 } from "react-native";
 
-export default function LoginScreen() {
-  const [email, onChangeEmail] = useState("");
-  const [password, onChangePassword] = useState("");
+export default function LoginScreen({ navigation }) {
+  const [email, onChangeEmail] = useState("Guillo");
+  const [password, onChangePassword] = useState("secretpassWow");
   const [loggedIn, setLoggedIn] = useState(false);
 
   return (
@@ -38,6 +38,7 @@ export default function LoginScreen() {
       <Pressable
         onPress={() => {
           setLoggedIn(!loggedIn);
+          navigation.navigate("Welcome");
         }}
         style={styles.loginButton}
       >
