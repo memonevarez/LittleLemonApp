@@ -10,23 +10,40 @@ import FeedbackForm from "./components/FeedbackForm";
 import LoginScreen from "./components/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
+  const Tab = createBottomTabNavigator();
+  // initialRouteName="Login"
+  // screenOptions={{ headerStyle: { backgroundColor: "#495E57" } }}
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Login"
-        screenOptions={{ headerStyle: { backgroundColor: "#495E57" } }}
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+            if (route.name === "Welcome") {
+              iconName = focused
+                ? "information-circle"
+                : "information-circle-outline";
+            } else if (route.name === "Menu") {
+              iconName = "list";
+            }
+            return <Ionicons name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: "blue",
+          tabBarInactiveTintColor: "gray",
+        })}
       >
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen
+        <Tab.Screen
           name="Welcome"
           component={WelcomeScreen}
           options={{ title: "Home" }}
         />
-        <Stack.Screen name="Menu" component={MenuItemsSectionList} />
-      </Stack.Navigator>
+        <Tab.Screen name="Menu" component={MenuItemsSectionList} />
+      </Tab.Navigator>
     </NavigationContainer>
   );
 
