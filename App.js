@@ -12,6 +12,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import SubscribeScreen from "./components/SubscribeScreen";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -30,6 +31,8 @@ export default function App() {
                 : "information-circle-outline";
             } else if (route.name === "Menu") {
               iconName = "list";
+            } else if (route.name === "Newsletter") {
+              iconName = "newspaper-outline";
             }
             return <Ionicons name={iconName} size={size} color={color} />;
           },
@@ -43,6 +46,7 @@ export default function App() {
           options={{ title: "Home" }}
         />
         <Tab.Screen name="Menu" component={MenuItemsSectionList} />
+        <Tab.Screen name="Newsletter" component={SubscribeScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
