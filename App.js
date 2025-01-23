@@ -45,7 +45,7 @@ export default function App() {
           component={WelcomeScreen}
           options={{ title: "Home" }}
         />
-        <Tab.Screen name="Menu" component={MenuItemsSectionList} />
+        <Tab.Screen name="Menu" component={MenuItemsFlatList} />
         <Tab.Screen name="Newsletter" component={SubscribeScreen} />
       </Tab.Navigator>
     </NavigationContainer>
