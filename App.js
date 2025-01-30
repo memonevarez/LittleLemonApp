@@ -13,6 +13,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import SubscribeScreen from "./components/SubscribeScreen";
+import Preferences from "./components/Preferences";
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -47,6 +48,7 @@ export default function App() {
         />
         <Tab.Screen name="Menu" component={MenuItemsFlatList} />
         <Tab.Screen name="Newsletter" component={SubscribeScreen} />
+        <Tab.Screen name="Preferences" component={Preferences} />
       </Tab.Navigator>
     </NavigationContainer>
   );
