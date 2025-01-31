@@ -3,6 +3,7 @@ import { Text, View, StyleSheet, Alert } from "react-native";
 import Constants from "expo-constants";
 import { Switch } from "react-native-paper";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import useUpdate from "./useUpdate";
 
 const Preferences = () => {
   const [preferences, setPreferences] = useState({
@@ -10,6 +11,8 @@ const Preferences = () => {
     emailMarketing: false,
     latestNews: false,
   });
+
+  //const isMounted = useRef(false); // Ref to track component mount, same as useUpdateEffect
 
   useEffect(() => {
     // Populating preferences from storage using AsyncStorage.multiGet
@@ -21,6 +24,7 @@ const Preferences = () => {
           acc[curr[0]] = JSON.parse(curr[1]);
           return acc;
         }, {});
+        console.log(initialState, "<<<<");
         setPreferences(initialState);
       } catch (e) {
         Alert.alert(`An error occurred: ${e.message}`);
@@ -29,7 +33,7 @@ const Preferences = () => {
   }, []);
 
   // This effect only runs when the preferences state updates, excluding initial mount
-  useEffect(() => {
+  useUpdate(() => {
     (async () => {
       // Every time there is an update on the preference state, we persist it on storage
       // The exercise requierement is to use multiSet API
@@ -44,6 +48,28 @@ const Preferences = () => {
       }
     })();
   }, [preferences]);
+
+  /** 
+    useEffect(() => {
+    if (isMounted.current) {
+      // Only run this after the initial mount
+      (async () => {
+        const keyValues = Object.entries(preferences).map(([key, value]) => [
+          key,
+          JSON.stringify(value),
+        ]);
+        try {
+          await AsyncStorage.multiSet(keyValues);
+        } catch (e) {
+          console.error("Error saving preferences:", e);
+          Alert.alert(`An error occurred: ${e.message}`);
+        }
+      })();
+    } else {
+      isMounted.current = true; // Set to true after the first render
+    }
+  }, [preferences]);
+   */
 
   const updateState = (key) => () =>
     setPreferences((prevState) => ({
